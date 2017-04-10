@@ -62,7 +62,6 @@ class App
             // Set scene.
             mRendering->setScene(scene);
         }
-        // Run the application.
         void run() {
             mRendering->run();
         }

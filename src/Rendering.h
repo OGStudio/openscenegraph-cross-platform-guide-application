@@ -28,7 +28,7 @@ freely, subject to the following restrictions:
 #include <osg/Camera>
 #include <osg/GraphicsContext>
 
-// Create graphics context that specifies render window configuration.
+// Create graphics context with render window configuration.
 osg::GraphicsContext *createGraphicsContext(
     const std::string &title,
     int x,

@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
         return 1;
     }
     std::string model = argv[1];
-
+    // Run application.
     App *app = new App;
     app->loadScene(model);
     app->run();
