@@ -36,3 +36,6 @@ List of files
 How to build
 ============
 
+The full process of building sample application for desktop, mobile, and web
+is available in [OpenSceneGraph cross-platform guide](http://github.com/OGStudio/openscenegraph-cross-platform-guide).
+
