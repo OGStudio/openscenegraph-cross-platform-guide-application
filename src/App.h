@@ -46,6 +46,14 @@ class App
             delete mLogging;
         }
 
+        void embed(int width, int height)
+        {
+            mRendering->embedWindow(0, 0, width, height);
+        }
+        void frame()
+        {
+            mRendering->frame();
+        }
         void loadScene(const std::string &fileName)
         {
             // Load scene.
@@ -64,6 +72,10 @@ class App
         }
         void run() {
             mRendering->run();
+        }
+        void setupWindow(int width, int height)
+        {
+            mRendering->setupWindow(1024, 768);
         }
 
     private:

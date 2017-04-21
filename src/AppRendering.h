@@ -39,8 +39,6 @@ class AppRendering
             mViewer = new osgViewer::Viewer;
             // Use single thread: CRITICAL for web.
             mViewer->setThreadingModel(osgViewer::ViewerBase::SingleThreaded);
-            // Setup window size.
-            setupWindow(1024, 768);
         }
         ~AppRendering()
         {
@@ -48,6 +46,14 @@ class AppRendering
             delete mViewer;
         }
 
+        void embedWindow(int x, int y, int width, int height)
+        {
+            mViewer->setUpViewerAsEmbeddedInWindow(x, y, width, height);
+        }
+        void frame()
+        {
+            mViewer->frame();
+        }
         void run()
         {
             // Launch the viewer.
@@ -57,8 +63,6 @@ class AppRendering
         {
             mViewer->setSceneData(scene);
         }
-
-    private:
         void setupWindow(int width, int height)
         {
             osg::GraphicsContext *gc =
@@ -68,6 +72,7 @@ class AppRendering
             setupCamera(cam, gc, 30, width, height);
         }
 
+    private:
         osgViewer::Viewer *mViewer;
 };
 
