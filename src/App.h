@@ -70,6 +70,16 @@ class App
             // Set scene.
             mRendering->setScene(scene);
         }
+        void moveMouse(float x, float y)
+        {
+            mLogging->notify(printfString("moveMouse(%f, %f)", x, y));
+            mRendering->moveMouse(x, y);
+        }
+        void pressMouse(bool down, float x, float y)
+        {
+            mLogging->notify(printfString("pressMouse(%d, %f, %f)", down, x, y));
+            mRendering->pressMouse(down, x, y);
+        }
         void run() {
             mRendering->run();
         }

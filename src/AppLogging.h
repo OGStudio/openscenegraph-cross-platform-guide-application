@@ -48,6 +48,11 @@ class AppLogging
             osg::setNotifyHandler(0);
         }
 
+        void notify(const std::string &msg)
+        {
+            mLogger->notify(osg::ALWAYS, msg.c_str());
+        }
+
     private:
         Logger *mLogger;
 };
