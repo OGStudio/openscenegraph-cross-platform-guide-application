@@ -25,12 +25,19 @@ freely, subject to the following restrictions:
 #ifndef OPENSCENEGRAPH_CROSS_PLATFORM_GUIDE_LOGGER_H
 #define OPENSCENEGRAPH_CROSS_PLATFORM_GUIDE_LOGGER_H
 
+#include "Logging.h"
 #include "LogLevelConversion.h"
 
 // Contains NotifyHandler, which we use to get OpenSceneGraph notifications.
 #include <osg/Notify>
-// Provides printf().
-#include <iostream>
+
+#ifdef ANDROID
+    // Provides __android_log_write().
+    #include <android/log.h>
+#else // ANDROID
+    // Provides printf().
+    #include <iostream>
+#endif // ANDROID
 
 // This class prints OpenSceneGraph notifications to stdout.
 class Logger : public osg::NotifyHandler
@@ -42,8 +49,17 @@ class Logger : public osg::NotifyHandler
         // Override NotifyHandler::notify() to receive OpenSceneGraph notifications.
         void notify(osg::NotifySeverity severity, const char *message)
         {
+            std::string finalMessage =
+                printfString(
+                    "OSG/%s %s\n",
+                    logLevelToString(severity).c_str(),
+                    message);
             // Simply print each notification to stdout.
-            printf("OSG/%s %s", logLevelToString(severity).c_str(), message);
+#ifdef ANDROID
+            __android_log_write(ANDROID_LOG_ERROR, "OSG", finalMessage.c_str());
+#else // ANDROID
+            printf(finalMessage.c_str());
+#endif // ANDROID
         }
 };
 
