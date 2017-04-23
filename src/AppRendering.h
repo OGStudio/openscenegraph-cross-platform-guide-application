@@ -27,6 +27,7 @@ freely, subject to the following restrictions:
 
 #include "Rendering.h"
 
+#include <osgGA/TrackballManipulator>
 #include <osgViewer/Viewer>
 
 // This class manages application rendering.
@@ -39,6 +40,8 @@ class AppRendering
             mViewer = new osgViewer::Viewer;
             // Use single thread: CRITICAL for web.
             mViewer->setThreadingModel(osgViewer::ViewerBase::SingleThreaded);
+            // Create manipulator: CRITICAL for mobile.
+            mViewer->setCameraManipulator(new osgGA::TrackballManipulator);
         }
         ~AppRendering()
         {
