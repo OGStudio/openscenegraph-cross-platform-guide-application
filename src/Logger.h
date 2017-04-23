@@ -51,14 +51,15 @@ class Logger : public osg::NotifyHandler
         {
             std::string finalMessage =
                 printfString(
-                    "OSG/%s %s\n",
+                    "OSG/%s %s",
                     logLevelToString(severity).c_str(),
                     message);
             // Simply print each notification to stdout.
 #ifdef ANDROID
+            finalMessage += std::endl;
             __android_log_write(ANDROID_LOG_ERROR, "OSG", finalMessage.c_str());
 #else // ANDROID
-            printf(finalMessage.c_str());
+            std::cout << finalMessage;
 #endif // ANDROID
         }
 };

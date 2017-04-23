@@ -1,4 +1,5 @@
 
+#include <cstdarg>
 #include <string>
 
 const int LOGGING_MAX_STRLEN = 1024;
