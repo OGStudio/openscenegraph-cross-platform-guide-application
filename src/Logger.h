@@ -56,7 +56,7 @@ class Logger : public osg::NotifyHandler
                     message);
             // Simply print each notification to stdout.
 #ifdef ANDROID
-            finalMessage += std::endl;
+            finalMessage += "\n";
             __android_log_write(ANDROID_LOG_ERROR, "OSG", finalMessage.c_str());
 #else // ANDROID
             std::cout << finalMessage;
