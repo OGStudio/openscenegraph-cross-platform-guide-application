@@ -48,7 +48,7 @@ OSG_JNI(moveMouse)(OSG_JNI_ARG, jfloat x, jfloat y)
     app.moveMouse(x * MOUSE_MOTION_FACTOR, y * MOUSE_MOTION_FACTOR);
 }
 
-OSG_JNI(moveMouse)(OSG_JNI_ARG, jboolean down, jfloat x, jfloat y)
+OSG_JNI(pressMouse)(OSG_JNI_ARG, jboolean down, jfloat x, jfloat y)
 {
     app.pressMouse(down == JNI_TRUE, x * MOUSE_MOTION_FACTOR, y * MOUSE_MOTION_FACTOR);
 }
