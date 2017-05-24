@@ -13,6 +13,9 @@ SET(DYNAMIC_OPENSCENEGRAPH OFF CACHE BOOL "Link OpenSceneGraph statically")
 SET(BUILD_OSG_APPLICATIONS OFF CACHE BOOL "Do not build OpenSceneGraph samples")
 # Configure OpenSceneGraph for simulator or real device.
 IF(BUILD_SIMULATOR)
+    # Fix wrong MacOSX SDK references.
+    SET(CURL_INCLUDE_DIR "" CACHE STRING "Prevent wrong MacOSX SDK reference" FORCE)
+    SET(ZLIB_INCLUDE_DIR "" CACHE STRING "Prevent wrong MacOSX SDK reference" FORCE)
     SET(OSG_BUILD_PLATFORM_IPHONE_SIMULATOR YES CACHE BOOL "Build OSG for simulator")
 ELSE()
     SET(OSG_BUILD_PLATFORM_IPHONE YES CACHE BOOL "Build OSG for device")
@@ -38,19 +41,21 @@ INCLUDE_DIRECTORIES(${OSG_BUILD_DIR}/include)
 ADD_LIBRARY(osgNativeLib STATIC src/osgNativeLib.cpp)
 # Libraries must be linked in the specified order.
 # Otherwise you may get unsatisified linker errors.
-#TARGET_LINK_LIBRARIES(
-#    osgNativeLib
-#    osgViewer
-#    osgDB
-#    # osgDB plugins start.
-#    osgdb_osg
-#    osgdb_serializers_osg
-#    # osgDB plugins end.
-#    osgGA
-#    osgShadow
-#    osgText
-#    osgUtil
-#    osg
-#    OpenThreads
-#)
+# WARNING: This does not actually link anything. However, this command
+# WARNING: makes sure all necessary libraries are built.
+TARGET_LINK_LIBRARIES(
+    osgNativeLib
+    osgViewer
+    osgDB
+    # osgDB plugins start.
+    osgdb_osg
+    osgdb_serializers_osg
+    # osgDB plugins end.
+    osgGA
+    osgShadow
+    osgText
+    osgUtil
+    osg
+    OpenThreads
+)
 # TODO: create single fat library by combining *a libraries.
