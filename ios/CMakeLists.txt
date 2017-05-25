@@ -3,7 +3,6 @@ SET(BUILD_SIMULATOR YES CACHE BOOL "Build for simulator. Use false to build for 
 
 # Path to external projects:
 # * OpenSceneGraph
-# -todo-* openscenegraph-cross-platform-guide-application
 SET(EXT_PROJ_DIR "${CMAKE_SOURCE_DIR}/../..")
 
 # Specify critical OpenSceneGraph build variables.
@@ -13,9 +12,9 @@ SET(DYNAMIC_OPENSCENEGRAPH OFF CACHE BOOL "Link OpenSceneGraph statically")
 SET(BUILD_OSG_APPLICATIONS OFF CACHE BOOL "Do not build OpenSceneGraph samples")
 # Configure OpenSceneGraph for simulator or real device.
 IF(BUILD_SIMULATOR)
-    # Fix wrong MacOSX SDK references.
-    SET(CURL_INCLUDE_DIR "" CACHE STRING "Prevent wrong MacOSX SDK reference" FORCE)
-    SET(ZLIB_INCLUDE_DIR "" CACHE STRING "Prevent wrong MacOSX SDK reference" FORCE)
+    # Prevent macOS SDK includes that lead to build errors.
+    SET(CURL_INCLUDE_DIR "" CACHE STRING "Prevent wrong macOS SDK include" FORCE)
+    SET(ZLIB_INCLUDE_DIR "" CACHE STRING "Prevent wrong macOS SDK include" FORCE)
     SET(OSG_BUILD_PLATFORM_IPHONE_SIMULATOR YES CACHE BOOL "Build OSG for simulator")
 ELSE()
     SET(OSG_BUILD_PLATFORM_IPHONE YES CACHE BOOL "Build OSG for device")
@@ -34,13 +33,8 @@ ADD_SUBDIRECTORY(${OSG_SOURCE_DIR} ${OSG_BUILD_DIR})
 INCLUDE_DIRECTORIES(${OSG_SOURCE_DIR}/include)
 INCLUDE_DIRECTORIES(${OSG_BUILD_DIR}/include)
 
-# Reference OpenSceneGraph cross-platform guide application.
-#INCLUDE_DIRECTORIES("${EXT_PROJ_DIR}/openscenegraph-cross-platform-guide-application/src")
-
 # Build osgNativeLib.
 ADD_LIBRARY(osgNativeLib STATIC src/osgNativeLib.cpp)
-# Libraries must be linked in the specified order.
-# Otherwise you may get unsatisified linker errors.
 # WARNING: This does not actually link anything. However, this command
 # WARNING: makes sure all necessary libraries are built.
 TARGET_LINK_LIBRARIES(
@@ -58,4 +52,3 @@ TARGET_LINK_LIBRARIES(
     osg
     OpenThreads
 )
-# TODO: create single fat library by combining *a libraries.
