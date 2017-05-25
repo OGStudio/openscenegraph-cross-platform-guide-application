@@ -37,7 +37,7 @@ int main(int argc, char *argv[])
     std::string model = argv[1];
     // Run application.
     App *app = new App;
-    app->setupWindow(1024, 768);
+    app->setupWindow(100, 100, 1024, 768);
     app->loadScene(model);
     app->run();
     delete app;

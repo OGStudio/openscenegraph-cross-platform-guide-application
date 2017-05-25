@@ -83,9 +83,9 @@ class App
         void run() {
             mRendering->run();
         }
-        void setupWindow(int width, int height)
+        void setupWindow(int x, int y, int width, int height)
         {
-            mRendering->setupWindow(1024, 768);
+            mRendering->setupWindow(x, y, width, height);
         }
 
     private:

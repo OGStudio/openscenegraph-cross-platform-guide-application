@@ -77,10 +77,10 @@ class AppRendering
         {
             mViewer->setSceneData(scene);
         }
-        void setupWindow(int width, int height)
+        void setupWindow(int x, int y, int width, int height)
         {
             osg::GraphicsContext *gc =
-                createGraphicsContext("Sample", 100, 100, width, height);
+                createGraphicsContext("Sample", x, y, width, height);
             // Configure viewer's camera with FOVY and window size.
             osg::Camera *cam = mViewer->getCamera();
             setupCamera(cam, gc, 30, width, height);
