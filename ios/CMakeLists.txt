@@ -30,9 +30,12 @@ ENDIF()
 SET(OSG_BUILD_DIR "${EXT_PROJ_DIR}/OpenSceneGraph/build/${BUILD_VARIANT}")
 FILE(MAKE_DIRECTORY ${OSG_BUILD_DIR})
 # TODO: Uncomment after testing.
-#ADD_SUBDIRECTORY(${OSG_SOURCE_DIR} ${OSG_BUILD_DIR})
+ADD_SUBDIRECTORY(${OSG_SOURCE_DIR} ${OSG_BUILD_DIR})
 INCLUDE_DIRECTORIES(${OSG_SOURCE_DIR}/include)
 INCLUDE_DIRECTORIES(${OSG_BUILD_DIR}/include)
+
+# Reference OpenSceneGraph cross-platform guide application.
+INCLUDE_DIRECTORIES("${EXT_PROJ_DIR}/openscenegraph-cross-platform-guide-application/src")
 
 # Build osgNativeLib.
 ADD_LIBRARY(osgNativeLib STATIC src/osgNativeLib.cpp)
