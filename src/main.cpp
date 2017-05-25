@@ -24,6 +24,7 @@ freely, subject to the following restrictions:
 
 
 #include "App.h"
+#include "LoggingPlatform.h"
 
 int main(int argc, char *argv[])
 {

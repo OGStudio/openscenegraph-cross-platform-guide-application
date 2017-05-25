@@ -22,26 +22,15 @@ freely, subject to the following restrictions:
 3. This notice may not be removed or altered from any source distribution.
 */
 
-#ifndef OPENSCENEGRAPH_CROSS_PLATFORM_GUIDE_LOGGING_H
-#define OPENSCENEGRAPH_CROSS_PLATFORM_GUIDE_LOGGING_H
+#ifndef OPENSCENEGRAPH_CROSS_PLATFORM_GUIDE_LOGGING_PLATFORM_ANDROID_H
+#define OPENSCENEGRAPH_CROSS_PLATFORM_GUIDE_LOGGING_PLATFORM_ANDROID_H
 
-#include <cstdarg>
-#include <string>
+#include <android/log.h>
 
-const int LOGGING_MAX_STRLEN = 1024;
-
-std::string printfString(const char *fmt, ...)
-{
-    va_list args;
-    char msg[LOGGING_MAX_STRLEN];
-    va_start(args, fmt);
-    vsnprintf(msg, LOGGING_MAX_STRLEN, fmt, args);
-    va_end(args);
-    return msg;
+// Android logging implementation.
+void platformLog(const char *msg) {
+    __android_log_write(ANDROID_LOG_ERROR, "OSG", msg);
 }
 
-// Platform specific logging. Implemented for each platform.
-extern void platformLog(const char *msg);
-
-#endif // OPENSCENEGRAPH_CROSS_PLATFORM_GUIDE_LOGGING_H
+#endif // OPENSCENEGRAPH_CROSS_PLATFORM_GUIDE_LOGGING_PLATFORM_ANDROID_H
 

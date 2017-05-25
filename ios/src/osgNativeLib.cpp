@@ -34,7 +34,7 @@ freely, subject to the following restrictions:
 //App app;
 
 
-UIView *init(UIView *parent, int width, int height, float scale);
+UIView *init(UIView *parent, int width, int height, float scale)
 {
     // TODO.
     return 0;
