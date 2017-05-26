@@ -22,15 +22,36 @@ freely, subject to the following restrictions:
 3. This notice may not be removed or altered from any source distribution.
 */
 
-#ifndef OPENSCENEGRAPH_CROSS_PLATFORM_GUIDE_LOGGING_PLATFORM_STANDARD_H
-#define OPENSCENEGRAPH_CROSS_PLATFORM_GUIDE_LOGGING_PLATFORM_STANDARD_H
+#ifndef OPENSCENEGRAPH_CROSS_PLATFORM_GUIDE_RENDERING_PLATFORM_DESKTOP_H
+#define OPENSCENEGRAPH_CROSS_PLATFORM_GUIDE_RENDERING_PLATFORM_DESKTOP_H
 
-#include <iostream>
+#include <osg/GraphicsContext>
 
-// Linux, macOS, Windows, iOS10+ logging implementation.
-void platformLog(const char *msg) {
-    std::cout << msg << std::endl;
+// Create graphics context for Linux, macOS, Windows.
+osg::GraphicsContext *createDesktopGraphicsContext(
+    const std::string &title,
+    int x,
+    int y,
+    int width,
+    int height)
+{
+    // Traits is a struct to combine necessary parameters.
+    osg::GraphicsContext::Traits *traits =
+        new osg::GraphicsContext::Traits;
+    // Geometry.
+    traits->x = x;
+    traits->y = y;
+    traits->width = width;
+    traits->height = height;
+    // Title.
+    traits->windowName = title;
+    // Window borders.
+    traits->windowDecoration = true;
+    // Double buffer (simply put, it's a flicker fix).
+    traits->doubleBuffer = true;
+    // Create GC.
+    return osg::GraphicsContext::createGraphicsContext(traits);
 }
 
-#endif // OPENSCENEGRAPH_CROSS_PLATFORM_GUIDE_LOGGING_PLATFORM_STANDARD_H
+#endif // OPENSCENEGRAPH_CROSS_PLATFORM_GUIDE_RENDERING_PLATFORM_DESKTOP_H
 
