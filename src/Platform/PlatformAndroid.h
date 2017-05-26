@@ -27,7 +27,7 @@ freely, subject to the following restrictions:
 
 // Android specific includes.
 
-#include "LoggingPlatformAndroid.h"
+#include "Logging/LoggingPlatformAndroid.h"
 
 #endif // OPENSCENEGRAPH_CROSS_PLATFORM_GUIDE_PLATFORM_ANDROID_H
 

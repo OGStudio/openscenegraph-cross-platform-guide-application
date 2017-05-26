@@ -27,7 +27,7 @@ freely, subject to the following restrictions:
 
 // iOS specific includes.
 
-#include "LoggingPlatformDefault.h"
+#include "Logging/LoggingPlatformDefault.h"
 
 #endif // OPENSCENEGRAPH_CROSS_PLATFORM_GUIDE_PLATFORM_IOS_H
 
