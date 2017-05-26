@@ -25,7 +25,7 @@ freely, subject to the following restrictions:
 #include "osgNativeLib.h"
 
 #include "App.h"
-#include "LoggingPlatform.h"
+#include "PlatformIOS.h"
 
 // Init OSG plugins.
 USE_OSGPLUGIN(osg2)
@@ -33,7 +33,6 @@ USE_SERIALIZER_WRAPPER_LIBRARY(osg)
 
 // Create application instance.
 App app;
-
 
 UIView *init(UIView *parent, int width, int height, float scale)
 {

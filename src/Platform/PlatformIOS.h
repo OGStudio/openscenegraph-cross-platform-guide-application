@@ -22,26 +22,12 @@ freely, subject to the following restrictions:
 3. This notice may not be removed or altered from any source distribution.
 */
 
+#ifndef OPENSCENEGRAPH_CROSS_PLATFORM_GUIDE_PLATFORM_IOS_H
+#define OPENSCENEGRAPH_CROSS_PLATFORM_GUIDE_PLATFORM_IOS_H
 
-#include "App.h"
-#include "Platform/PlatformDesktop.h"
+// iOS specific includes.
 
-int main(int argc, char *argv[])
-{
-    // Make sure we have path to model on command line.
-    if (argc != 2)
-    {
-        printf("Usage: %s /path/to/box.osgt\n", argv[0]);
-        return 1;
-    }
-    std::string model = argv[1];
-    // Run application.
-    App *app = new App;
-    app->setupWindow(100, 100, 1024, 768);
-    app->loadScene(model);
-    app->run();
-    delete app;
+#include "LoggingPlatformDefault.h"
 
-    return 0;
-}
+#endif // OPENSCENEGRAPH_CROSS_PLATFORM_GUIDE_PLATFORM_IOS_H
 

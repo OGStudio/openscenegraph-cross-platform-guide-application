@@ -22,15 +22,12 @@ freely, subject to the following restrictions:
 3. This notice may not be removed or altered from any source distribution.
 */
 
-#ifndef OPENSCENEGRAPH_CROSS_PLATFORM_GUIDE_LOGGING_PLATFORM_H
-#define OPENSCENEGRAPH_CROSS_PLATFORM_GUIDE_LOGGING_PLATFORM_H
+#ifndef OPENSCENEGRAPH_CROSS_PLATFORM_GUIDE_PLATFORM_ANDROID_H
+#define OPENSCENEGRAPH_CROSS_PLATFORM_GUIDE_PLATFORM_ANDROID_H
 
-#include <iostream>
+// Android specific includes.
 
-// Desktop & iOS10+ logging implementation.
-void platformLog(const char *msg) {
-    std::cout << msg << std::endl;
-}
+#include "LoggingPlatformAndroid.h"
 
-#endif // OPENSCENEGRAPH_CROSS_PLATFORM_GUIDE_LOGGING_PLATFORM_H
+#endif // OPENSCENEGRAPH_CROSS_PLATFORM_GUIDE_PLATFORM_ANDROID_H
 

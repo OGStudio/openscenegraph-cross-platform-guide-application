@@ -1,6 +1,6 @@
 
 #include "App.h"
-#include "LoggingPlatformAndroid.h"
+#include "PlatformAndroid.h"
 
 #include <jni.h>
 #include <string>
