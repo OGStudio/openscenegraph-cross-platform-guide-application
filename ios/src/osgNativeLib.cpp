@@ -27,6 +27,7 @@ freely, subject to the following restrictions:
 #include "AppLogging.h"
 #include "AppRendering/AppRenderingPlatformIOS.h"
 #include "Platform/PlatformIOS.h"
+#include "Shaders.h"
 
 // TODO: Move to AppScene.
 #include <osgDB/ReadFile>
@@ -53,7 +54,7 @@ class App {
 };
 
 // Init OSG plugins.
-// TODO: Move to AppScene, since this macro deals with resources?
+// TODO: Move to AppScene.
 USE_OSGPLUGIN(osg2)
 USE_SERIALIZER_WRAPPER_LIBRARY(osg)
 
@@ -70,10 +71,22 @@ void frame()
     app.rendering->frame();
 }
 
-void loadModel(const std::string &path)
+void loadModel(const std::string &fileName)
 {
-    // TODO.
-    // app.scene->load
+    // TODO: Move to AppScene.
+    // Load scene.
+    osg::Node *scene = osgDB::readNodeFile(fileName);
+    if (!scene)
+    {
+        platformLog("Could not load scene");
+        return;
+    }
+    // Load shaders.
+    osg::Program *prog = createShaderProgram(shaderVertex, shaderFragment);
+    // Apply shaders.
+    scene->getOrCreateStateSet()->setAttribute(prog);
+    // Set scene.
+    app.rendering->setScene(scene);
 }
 
 } // namespace osgNativeLib.

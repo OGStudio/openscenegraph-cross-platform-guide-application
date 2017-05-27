@@ -43,7 +43,7 @@ UIView *init(int width, int height, float scale, UIView *parentView);
 void frame();
 
 // Resources.
-void loadModel(const std::string &path);
+void loadModel(const std::string &fileName);
 
 } // namespace osgNativeLib.
 
