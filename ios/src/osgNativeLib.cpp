@@ -25,8 +25,11 @@ freely, subject to the following restrictions:
 #include "osgNativeLib.h"
 
 #include "AppLogging.h"
-#include "AppRenderingPlatformIOS.h"
-#include "PlatformIOS.h"
+#include "AppRendering/AppRenderingPlatformIOS.h"
+#include "Platform/PlatformIOS.h"
+
+// TODO: Move to AppScene.
+#include <osgDB/ReadFile>
 
 // TODO: Extract?
 class App {
@@ -48,6 +51,7 @@ class App {
 };
 
 // Init OSG plugins.
+// TODO: Move to AppScene, since this macro deals with resources?
 USE_OSGPLUGIN(osg2)
 USE_SERIALIZER_WRAPPER_LIBRARY(osg)
 

@@ -33,7 +33,7 @@ class AppRenderingPlatformDesktop : public AppRendering
 {
     public:
         AppRenderingPlatformDesktop() : AppRendering() { }
-        virtual ~AppRendering() { }
+        virtual ~AppRenderingPlatformDesktop() { }
 
         void run()
         {

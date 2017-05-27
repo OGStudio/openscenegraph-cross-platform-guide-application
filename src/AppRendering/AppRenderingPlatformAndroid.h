@@ -32,7 +32,7 @@ class AppRenderingPlatformAndroid : public AppRendering
 {
     public:
         AppRenderingPlatformAndroid() : AppRendering() { }
-        virtual ~AppRendering() { }
+        virtual ~AppRenderingPlatformAndroid() { }
 
         void moveMouse(float x, float y)
         {

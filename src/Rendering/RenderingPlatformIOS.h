@@ -26,6 +26,7 @@ freely, subject to the following restrictions:
 #define OPENSCENEGRAPH_CROSS_PLATFORM_GUIDE_RENDERING_PLATFORM_IOS_H
 
 #include <osg/GraphicsContext>
+#include <osgViewer/api/IOS/GraphicsWindowIOS>
 
 // Create graphics context for iOS.
 osg::GraphicsContext *createIOSGraphicsContext(

@@ -33,7 +33,7 @@ class AppRenderingPlatformIOS : public AppRendering
 {
     public:
         AppRenderingPlatformIOS() : AppRendering() { }
-        virtual ~AppRendering() { }
+        virtual ~AppRenderingPlatformIOS() { }
 
         UIView *setupWindow(
             int width,
@@ -48,7 +48,7 @@ class AppRenderingPlatformIOS : public AppRendering
             osg::Camera *cam = mViewer->getCamera();
             setupCamera(cam, gc, 30, width, height);
             // Return UIView to embed.
-            return gc->getView();
+            return (UIView *)gc->getView();
         }
 };
 
