@@ -46,7 +46,7 @@ class AppRenderingPlatformIOS : public AppRendering
                     createIOSGraphicsContext(width, height, scale, parentView));
             // Configure viewer's camera with FOVY and window size.
             osg::Camera *cam = mViewer->getCamera();
-            setupCamera(cam, gc, 30, width, height);
+            setupCamera(cam, gc, 30, width * scale, height * scale);
             // Return UIView to embed.
             return (UIView *)gc->getView();
         }

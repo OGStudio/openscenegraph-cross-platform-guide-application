@@ -34,6 +34,8 @@ freely, subject to the following restrictions:
 
 #include <string>
 
+namespace osgNativeLib {
+
 // Initialization.
 UIView *init(int width, int height, float scale, UIView *parentView);
 
@@ -42,6 +44,8 @@ void frame();
 
 // Resources.
 void loadModel(const std::string &path);
+
+} // namespace osgNativeLib.
 
 #endif // OPENSCENEGRAPH_CROSS_PLATFORM_GUIDE_OSG_NATIVE_LIB_H
 

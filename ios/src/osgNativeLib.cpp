@@ -31,6 +31,8 @@ freely, subject to the following restrictions:
 // TODO: Move to AppScene.
 #include <osgDB/ReadFile>
 
+namespace osgNativeLib {
+
 // TODO: Extract?
 class App {
     public:
@@ -73,4 +75,6 @@ void loadModel(const std::string &path)
     // TODO.
     // app.scene->load
 }
+
+} // namespace osgNativeLib.
 
