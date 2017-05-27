@@ -25,12 +25,17 @@ freely, subject to the following restrictions:
 #ifndef OPENSCENEGRAPH_CROSS_PLATFORM_GUIDE_OSG_NATIVE_LIB_H
 #define OPENSCENEGRAPH_CROSS_PLATFORM_GUIDE_OSG_NATIVE_LIB_H
 
-#include <osgViewer/api/IOS/GraphicsWindowIOS>
+// Forward declare UIView for Objective-C++ and C++.
+#ifdef __OBJC__
+    @class UIView;
+#else
+    class UIView;
+#endif
 
 #include <string>
 
 // Initialization.
-UIView *init(UIView *parent, int width, int height, float scale);
+UIView *init(int width, int height, float scale, UIView *parentView);
 
 // Rendering.
 void frame();

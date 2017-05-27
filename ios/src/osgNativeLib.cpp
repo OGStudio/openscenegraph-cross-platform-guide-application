@@ -24,8 +24,28 @@ freely, subject to the following restrictions:
 
 #include "osgNativeLib.h"
 
-#include "App.h"
+#include "AppLogging.h"
+#include "AppRenderingPlatformIOS.h"
 #include "PlatformIOS.h"
+
+// TODO: Extract?
+class App {
+    public:
+        App()
+        {
+            logging = new AppLogging;
+            rendering = new AppRenderingPlatformIOS;
+        }
+        ~App()
+        {
+            delete rendering;
+            delete logging;
+        }
+
+    public:
+        AppLogging *logging;
+        AppRenderingPlatformIOS *rendering;
+};
 
 // Init OSG plugins.
 USE_OSGPLUGIN(osg2)
@@ -34,19 +54,19 @@ USE_SERIALIZER_WRAPPER_LIBRARY(osg)
 // Create application instance.
 App app;
 
-UIView *init(UIView *parent, int width, int height, float scale)
+UIView *init(int width, int height, float scale, UIView *parentView)
 {
-    // TODO.
-    return 0;
+    return app.rendering->setupWindow(width, height, scale, parentView);
 }
 
 void frame()
 {
-    // TODO.
+    app.rendering->frame();
 }
 
 void loadModel(const std::string &path)
 {
     // TODO.
+    // app.scene->load
 }
 
