@@ -26,33 +26,6 @@ freely, subject to the following restrictions:
 #define OPENSCENEGRAPH_CROSS_PLATFORM_GUIDE_RENDERING_H
 
 #include <osg/Camera>
-#include <osg/GraphicsContext>
-
-// Create graphics context with render window configuration.
-osg::GraphicsContext *createGraphicsContext(
-    const std::string &title,
-    int x,
-    int y,
-    int width,
-    int height)
-{
-    // Traits is a struct to combine necessary parameters.
-    osg::GraphicsContext::Traits *traits =
-        new osg::GraphicsContext::Traits;
-    // Geometry.
-    traits->x                = x;
-    traits->y                = y;
-    traits->width            = width;
-    traits->height           = height;
-    // Title.
-    traits->windowName       = title;
-    // Window borders.
-    traits->windowDecoration = true;
-    // Double buffer.
-    traits->doubleBuffer     = true;
-    // Create GC.
-    return osg::GraphicsContext::createGraphicsContext(traits);
-}
 
 // Configure camera with common defaults.
 void setupCamera(
