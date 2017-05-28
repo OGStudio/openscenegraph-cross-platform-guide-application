@@ -69,7 +69,7 @@ class Application
             osg::Node *scene = osgDB::readNodeFile(fileName);
             if (!scene)
             {
-                osg::notify(osg::FATAL) << "Could not load scene";
+                platformLog("Could not load scene");
                 return;
             }
             // Load shaders.
