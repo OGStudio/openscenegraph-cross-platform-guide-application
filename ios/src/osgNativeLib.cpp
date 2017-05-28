@@ -24,69 +24,26 @@ freely, subject to the following restrictions:
 
 #include "osgNativeLib.h"
 
-#include "AppLogging.h"
-#include "AppRendering/AppRenderingPlatformIOS.h"
-#include "Platform/PlatformIOS.h"
-#include "Shaders.h"
-
-// TODO: Move to AppScene.
-#include <osgDB/ReadFile>
+#include "main.h"
 
 namespace osgNativeLib {
 
-// TODO: Extract?
-class App {
-    public:
-        App()
-        {
-            logging = new AppLogging;
-            rendering = new AppRenderingPlatformIOS;
-        }
-        ~App()
-        {
-            delete rendering;
-            delete logging;
-        }
-
-    public:
-        AppLogging *logging;
-        AppRenderingPlatformIOS *rendering;
-};
-
-// Init OSG plugins.
-// TODO: Move to AppScene.
-USE_OSGPLUGIN(osg2)
-USE_SERIALIZER_WRAPPER_LIBRARY(osg)
-
-// Create application instance.
-App app;
+// Application instance.
+Application app;
 
 UIView *init(int width, int height, float scale, UIView *parentView)
 {
-    return app.rendering->setupWindow(width, height, scale, parentView);
+    return app.setupWindow(width, height, scale, parentView);
 }
 
 void frame()
 {
-    app.rendering->frame();
+    app.frame();
 }
 
 void loadModel(const std::string &fileName)
 {
-    // TODO: Move to AppScene.
-    // Load scene.
-    osg::Node *scene = osgDB::readNodeFile(fileName);
-    if (!scene)
-    {
-        platformLog("Could not load scene");
-        return;
-    }
-    // Load shaders.
-    osg::Program *prog = createShaderProgram(shaderVertex, shaderFragment);
-    // Apply shaders.
-    scene->getOrCreateStateSet()->setAttribute(prog);
-    // Set scene.
-    app.rendering->setScene(scene);
+    app.loadScene(fileName);
 }
 
 } // namespace osgNativeLib.

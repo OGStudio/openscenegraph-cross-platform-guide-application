@@ -35,7 +35,8 @@ INCLUDE_DIRECTORIES(${OSG_SOURCE_DIR}/include)
 INCLUDE_DIRECTORIES(${OSG_BUILD_DIR}/include)
 
 # Reference OpenSceneGraph cross-platform guide application.
-INCLUDE_DIRECTORIES("${EXT_PROJ_DIR}/openscenegraph-cross-platform-guide-application/src")
+INCLUDE_DIRECTORIES("${EXT_PROJ_DIR}/openscenegraph-cross-platform-guide-application/ios/src")
+INCLUDE_DIRECTORIES("${EXT_PROJ_DIR}/openscenegraph-cross-platform-guide-application/ios/src-gen")
 
 # Build osgNativeLib.
 ADD_LIBRARY(osgNativeLib STATIC src/osgNativeLib.cpp)

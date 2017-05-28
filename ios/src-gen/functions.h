@@ -66,14 +66,16 @@ std::string printfString(const char *fmt, ...)
     return msg;
 }
 
-// FEATURE LOGGING_ANDROID/INCLUDE
-// FEATURE LOGGING_DEFAULT/INCLUDE
+// BEGIN FEATURE LOGGING_DEFAULT
+#include <iostream>
+// END   FEATURE LOGGING_DEFAULT
 
 // Platform specific logging.
 void platformLog(const char *message)
 {
-    // FEATURE LOGGING_ANDROID/IMPL
-    // FEATURE LOGGING_DEFAULT/IMPL
+// BEGIN FEATURE LOGGING_DEFAULT
+    std::cout << message << std::endl;
+// END   FEATURE LOGGING_DEFAULT
 }
 
 #include <osg/Camera>
@@ -98,10 +100,39 @@ void setupCamera(
     cam->setProjectionMatrixAsPerspective(30, aspect, 1, 1000);
 }
 
-// FEATURE RENDERING_DESKTOP/IMPL
 
-// FEATURE RENDERING_IOS/INCLUDE
-// FEATURE RENDERING_IOS/IMPL
+// BEGIN FEATURE RENDERING_IOS
+#include <osgViewer/api/IOS/GraphicsWindowIOS>
+// END   FEATURE RENDERING_IOS
+// BEGIN FEATURE RENDERING_IOS
+// Create graphics context for iOS.
+osg::GraphicsContext *createGraphicsContext(
+    int width,
+    int height,
+    float scale,
+    UIView *parentView)
+{
+    // Traits is a struct to combine necessary parameters.
+    osg::GraphicsContext::Traits *traits =
+        new osg::GraphicsContext::Traits;
+    // Geometry.
+    traits->x = 0;
+    traits->y = 0;
+    traits->width = width * scale;
+    traits->height = height * scale;
+    // Double buffer (simply put, it's a flicker fix).
+    traits->doubleBuffer = true;
+    // Parent view.
+    osg::ref_ptr<osgViewer::GraphicsWindowIOS::WindowData> dat =
+        new osgViewer::GraphicsWindowIOS::WindowData(
+            parentView,
+            osgViewer::GraphicsWindowIOS::WindowData::IGNORE_ORIENTATION);
+    dat->setViewContentScaleFactor(scale);
+    traits->inheritedWindowData = dat;
+    // Create GC.
+    return osg::GraphicsContext::createGraphicsContext(traits);
+}
+// END   FEATURE RENDERING_IOS
 
 #include <osg/Program>
 
