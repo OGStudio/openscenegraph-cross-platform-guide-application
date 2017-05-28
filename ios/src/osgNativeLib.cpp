@@ -24,29 +24,27 @@ freely, subject to the following restrictions:
 
 #include "osgNativeLib.h"
 
-#include "App.h"
-#include "PlatformIOS.h"
+#include "main.h"
 
-// Init OSG plugins.
-USE_OSGPLUGIN(osg2)
-USE_SERIALIZER_WRAPPER_LIBRARY(osg)
+namespace osgNativeLib {
 
-// Create application instance.
-App app;
+// Application instance.
+Application app;
 
-UIView *init(UIView *parent, int width, int height, float scale)
+UIView *init(int width, int height, float scale, UIView *parentView)
 {
-    // TODO.
-    return 0;
+    return app.setupWindow(width, height, scale, parentView);
 }
 
 void frame()
 {
-    // TODO.
+    app.frame();
 }
 
-void loadModel(const std::string &path)
+void loadModel(const std::string &fileName)
 {
-    // TODO.
+    app.loadScene(fileName);
 }
+
+} // namespace osgNativeLib.
 

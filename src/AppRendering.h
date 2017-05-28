@@ -30,63 +30,39 @@ freely, subject to the following restrictions:
 #include <osgGA/TrackballManipulator>
 #include <osgViewer/Viewer>
 
-// This class manages application rendering.
+// Base class to manager application rendering.
+// Use platform specific derivatives.
 class AppRendering
 {
     public:
-        AppRendering()
-        {
-            // Create OpenSceneGraph viewer.
-            mViewer = new osgViewer::Viewer;
-            // Use single thread: CRITICAL for web.
-            mViewer->setThreadingModel(osgViewer::ViewerBase::SingleThreaded);
-            // Create manipulator: CRITICAL for mobile.
-            mViewer->setCameraManipulator(new osgGA::TrackballManipulator);
-        }
-        ~AppRendering()
-        {
-            // Tear down the viewer.
-            delete mViewer;
-        }
-
-        void embedWindow(int x, int y, int width, int height)
-        {
-            mViewer->setUpViewerAsEmbeddedInWindow(x, y, width, height);
-        }
         void frame()
         {
             mViewer->frame();
-        }
-        void moveMouse(float x, float y)
-        {
-            mViewer->getEventQueue()->mouseMotion(x, y);
-        }
-        void pressMouse(bool down, float x, float y)
-        {
-            if (down)
-                mViewer->getEventQueue()->mouseButtonPress(x, y, 2 /* MMB */);
-            else
-                mViewer->getEventQueue()->mouseButtonRelease(x, y, 2 /* MMB */);
-        }
-        void run()
-        {
-            // Launch the viewer.
-            mViewer->run();
         }
         void setScene(osg::Node *scene)
         {
             mViewer->setSceneData(scene);
         }
-        void setupWindow(int x, int y, int width, int height)
+
+    protected:
+        AppRendering()
         {
-            osg::GraphicsContext *gc =
-                createGraphicsContext("Sample", x, y, width, height);
-            // Configure viewer's camera with FOVY and window size.
-            osg::Camera *cam = mViewer->getCamera();
-            setupCamera(cam, gc, 30, width, height);
+            // Create OpenSceneGraph viewer.
+            mViewer = new osgViewer::Viewer;
+            // Use single thread: CRITICAL for web.
+            // TODO: Move to specific platform?
+            mViewer->setThreadingModel(osgViewer::ViewerBase::SingleThreaded);
+            // Create manipulator: CRITICAL for mobile.
+            // TODO: Move to specific platform?
+            mViewer->setCameraManipulator(new osgGA::TrackballManipulator);
+        }
+        virtual ~AppRendering()
+        {
+            // Tear down the viewer.
+            delete mViewer;
         }
 
-    private:
+    protected:
         osgViewer::Viewer *mViewer;
 };
 

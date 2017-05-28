@@ -35,7 +35,8 @@ INCLUDE_DIRECTORIES(${OSG_SOURCE_DIR}/include)
 INCLUDE_DIRECTORIES(${OSG_BUILD_DIR}/include)
 
 # Reference OpenSceneGraph cross-platform guide application.
-INCLUDE_DIRECTORIES("${EXT_PROJ_DIR}/openscenegraph-cross-platform-guide-application/src")
+INCLUDE_DIRECTORIES("${EXT_PROJ_DIR}/openscenegraph-cross-platform-guide-application/ios/src")
+INCLUDE_DIRECTORIES("${EXT_PROJ_DIR}/openscenegraph-cross-platform-guide-application/ios/src-gen")
 
 # Build osgNativeLib.
 ADD_LIBRARY(osgNativeLib STATIC src/osgNativeLib.cpp)
@@ -56,3 +57,15 @@ TARGET_LINK_LIBRARIES(
     osg
     OpenThreads
 )
+
+# Generate single osglib.
+# Source: https://stackoverflow.com/a/32062884
+ADD_CUSTOM_COMMAND(
+    OUTPUT alwaysRebuild
+    COMMAND echo)
+ADD_CUSTOM_COMMAND(
+    OUTPUT generateSingleLib
+    COMMAND "${CMAKE_SOURCE_DIR}/create_single_osglib" "." "." "${OSG_BUILD_DIR}"
+    DEPENDS alwaysRebuild)
+ADD_CUSTOM_TARGET(singleLib ALL
+    DEPENDS generateSingleLib)
