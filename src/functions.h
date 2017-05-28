@@ -66,13 +66,15 @@ std::string printfString(const char *fmt, ...)
     return msg;
 }
 
-// FEATURE LOGGING_ANDROID/INCLUDE
-// FEATURE LOGGING_DEFAULT/INCLUDE
+// BEGIN FEATURE LOGGING_DEFAULT
+#include <iostream>
+// END   FEATURE LOGGING_DEFAULT
 
 // Platform specific logging.
 void platformLog(const char *message) {
-    // FEATURE LOGGING_ANDROID/IMPL
-    // FEATURE LOGGING_DEFAULT/IMPL
+// BEGIN FEATURE LOGGING_DEFAULT
+    std::cout << message << std::endl;
+// END   FEATURE LOGGING_DEFAULT
 }
 
 #endif // OPENSCENEGRAPH_CROSS_PLATFORM_GUIDE_FUNCTIONS_H

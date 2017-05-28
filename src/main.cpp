@@ -23,8 +23,7 @@ freely, subject to the following restrictions:
 */
 
 
-#include "App.h"
-#include "Platform/PlatformDesktop.h"
+#include "main.h"
 
 int main(int argc, char *argv[])
 {
@@ -35,11 +34,14 @@ int main(int argc, char *argv[])
         return 1;
     }
     std::string model = argv[1];
+
     // Run application.
-    App *app = new App;
+    Application *app = new Application;
+    /*
     app->setupWindow(100, 100, 1024, 768);
     app->loadScene(model);
     app->run();
+    */
     delete app;
 
     return 0;
