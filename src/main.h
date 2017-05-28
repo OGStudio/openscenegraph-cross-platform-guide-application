@@ -27,6 +27,7 @@ freely, subject to the following restrictions:
 
 #include "functions.h"
 
+#include <osgDB/ReadFile>
 #include <osgViewer/Viewer>
 
 // This class prints OpenSceneGraph notifications to console.
@@ -62,7 +63,6 @@ class Application
             tearDownRendering();
         }
 
-        /*
         void loadScene(const std::string &fileName)
         {
             // Load scene.
@@ -77,10 +77,8 @@ class Application
             // Apply shaders.
             scene->getOrCreateStateSet()->setAttribute(prog);
             // Set scene.
-            mRendering->setScene(scene);
-            //mViewer->setSceneData(scene);
+            mViewer->setSceneData(scene);
         }
-        */
 // BEGIN FEATURE RENDERING_DESKTOP
         void run()
         {

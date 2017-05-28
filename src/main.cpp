@@ -37,7 +37,7 @@ int main(int argc, char *argv[])
     // Run application.
     Application *app = new Application;
     app->setupWindow("OSG", 100, 100, 1024, 768);
-    //app->loadScene(model);
+    app->loadScene(model);
     app->run();
     delete app;
 
