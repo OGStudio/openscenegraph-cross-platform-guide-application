@@ -22,9 +22,7 @@ freely, subject to the following restrictions:
 3. This notice may not be removed or altered from any source distribution.
 */
 
-
-#include "App.h"
-#include "Platform/PlatformDesktop.h"
+#include "main.h"
 
 int main(int argc, char *argv[])
 {
@@ -35,9 +33,10 @@ int main(int argc, char *argv[])
         return 1;
     }
     std::string model = argv[1];
+
     // Run application.
-    App *app = new App;
-    app->setupWindow(100, 100, 1024, 768);
+    Application *app = new Application;
+    app->setupWindow("OSG", 100, 100, 1024, 768);
     app->loadScene(model);
     app->run();
     delete app;
