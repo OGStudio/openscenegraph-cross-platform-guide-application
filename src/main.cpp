@@ -22,7 +22,6 @@ freely, subject to the following restrictions:
 3. This notice may not be removed or altered from any source distribution.
 */
 
-
 #include "main.h"
 
 int main(int argc, char *argv[])
@@ -37,11 +36,9 @@ int main(int argc, char *argv[])
 
     // Run application.
     Application *app = new Application;
-    /*
-    app->setupWindow(100, 100, 1024, 768);
-    app->loadScene(model);
+    app->setupWindow("OSG", 100, 100, 1024, 768);
+    //app->loadScene(model);
     app->run();
-    */
     delete app;
 
     return 0;

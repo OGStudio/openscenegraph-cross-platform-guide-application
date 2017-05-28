@@ -27,6 +27,8 @@ freely, subject to the following restrictions:
 
 #include "functions.h"
 
+#include <osgViewer/Viewer>
+
 // This class prints OpenSceneGraph notifications to console.
 class Logger : public osg::NotifyHandler
 {
@@ -57,7 +59,7 @@ class Application
         ~Application()
         {
             tearDownLogging();
-            //tearDownRendering();
+            tearDownRendering();
         }
 
         /*
@@ -76,11 +78,32 @@ class Application
             scene->getOrCreateStateSet()->setAttribute(prog);
             // Set scene.
             mRendering->setScene(scene);
+            //mViewer->setSceneData(scene);
         }
         */
+// BEGIN FEATURE RENDERING_DESKTOP
+        void run()
+        {
+            mViewer->run();
+        }
+        void setupWindow(
+            const std::string &title,
+            int x,
+            int y,
+            int width,
+            int height)
+        {
+            osg::GraphicsContext *gc =
+                createGraphicsContext(title, x, y, width, height);
+            // Configure viewer's camera with FOVY and window size.
+            osg::Camera *cam = mViewer->getCamera();
+            setupCamera(cam, gc, 30, width, height);
+        }
+// END   FEATURE RENDERING_DESKTOP
 
     private:
-        void setupLogging() {
+        void setupLogging()
+        {
             // Create custom logger.
             mLogger = new Logger;
             // Provide the logger to OpenSceneGraph.
@@ -89,18 +112,25 @@ class Application
             // like warnings and errors.
             osg::setNotifyLevel(osg::INFO);
         }
-        void setupRendering() {
-
+        void setupRendering()
+        {
+            // Create OpenSceneGraph viewer.
+            mViewer = new osgViewer::Viewer;
         }
-        void tearDownLogging() {
+        void tearDownLogging()
+        {
             // Remove the logger from OpenSceneGraph.
-            // This also destroys the logger.
+            // This also destroys the logger: no need to deallocate it manually.
             osg::setNotifyHandler(0);
+        }
+        void tearDownRendering()
+        {
+            delete mViewer;
         }
 
     private:
         Logger *mLogger;
-        //AppRendering *mRendering;
+        osgViewer::Viewer *mViewer;
 };
 
 #endif // OPENSCENEGRAPH_CROSS_PLATFORM_GUIDE_MAIN_H

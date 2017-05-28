@@ -71,11 +71,62 @@ std::string printfString(const char *fmt, ...)
 // END   FEATURE LOGGING_DEFAULT
 
 // Platform specific logging.
-void platformLog(const char *message) {
+void platformLog(const char *message)
+{
 // BEGIN FEATURE LOGGING_DEFAULT
     std::cout << message << std::endl;
 // END   FEATURE LOGGING_DEFAULT
 }
+
+#include <osg/Camera>
+
+// Configure camera with common defaults.
+void setupCamera(
+    osg::Camera *cam,
+    osg::GraphicsContext *gc,
+    double fovy,
+    int width,
+    int height)
+{
+    // Provide GC.
+    cam->setGraphicsContext(gc);
+    // Viewport must have the same size.
+    cam->setViewport(new osg::Viewport(0, 0, width, height));
+    // Clear depth and color buffers each frame.
+    cam->setClearMask(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
+    // Aspect ratio.
+    float aspect = static_cast<float>(width) / static_cast<float>(height);
+    // Configure projection.
+    cam->setProjectionMatrixAsPerspective(30, aspect, 1, 1000);
+}
+
+// BEGIN FEATURE RENDERING_DESKTOP
+// Create graphics context for Linux, macOS, Windows.
+osg::GraphicsContext *createGraphicsContext(
+    const std::string &title,
+    int x,
+    int y,
+    int width,
+    int height)
+{
+    // Traits is a struct to combine necessary parameters.
+    osg::GraphicsContext::Traits *traits =
+        new osg::GraphicsContext::Traits;
+    // Geometry.
+    traits->x = x;
+    traits->y = y;
+    traits->width = width;
+    traits->height = height;
+    // Title.
+    traits->windowName = title;
+    // Window borders.
+    traits->windowDecoration = true;
+    // Double buffer (simply put, it's a flicker fix).
+    traits->doubleBuffer = true;
+    // Create GC.
+    return osg::GraphicsContext::createGraphicsContext(traits);
+}
+// END   FEATURE RENDERING_DESKTOP
 
 #endif // OPENSCENEGRAPH_CROSS_PLATFORM_GUIDE_FUNCTIONS_H
 
