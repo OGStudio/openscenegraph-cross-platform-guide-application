@@ -1,9 +1,8 @@
 #!/bin/bash
 # Combine osgNativeLib with OpenSceneGraph static libraries
 # into single library for convenience.
-OUTPUT_DIR=$1
-OSG_NATIVE_LIB_BUILD_DIR=$2
-OSG_BUILD_DIR=$3
+OSG_NATIVE_LIB_BUILD_DIR=$1
+OSG_BUILD_DIR=$2
 
 OUTPUT_LIB=libosglib.a
 OSG_NATIVE_LIB=libosgNativeLib.a
@@ -11,7 +10,7 @@ OSG_NATIVE_LIB_INTERNAL_DIR=Release-iphonesimulator
 
 echo "Creating single static osglib \"$OUTPUT_DIR/$OUTPUT_LIB\""
 
-libtool -static -o $OUTPUT_DIR/$OUTPUT_LIB \
+libtool -static -o $OSG_NATIVE_LIB_BUILD_DIR/$OUTPUT_LIB \
     $OSG_NATIVE_LIB_BUILD_DIR/$OSG_NATIVE_LIB_INTERNAL_DIR/$OSG_NATIVE_LIB \
     $OSG_BUILD_DIR/lib/libOpenThreads.a \
     $OSG_BUILD_DIR/lib/libosg.a \
