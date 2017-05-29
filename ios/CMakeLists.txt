@@ -56,3 +56,9 @@ TARGET_LINK_LIBRARIES(
     osg
     OpenThreads
 )
+
+# Generate single osglib after osgNativeLib has been built.
+ADD_CUSTOM_COMMAND(
+    TARGET osgNativeLib
+    POST_BUILD
+    COMMAND "${CMAKE_SOURCE_DIR}/create_single_osglib" "." "${OSG_BUILD_DIR}")
