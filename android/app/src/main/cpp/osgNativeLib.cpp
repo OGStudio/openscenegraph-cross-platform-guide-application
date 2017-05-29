@@ -1,6 +1,5 @@
 
-#include "App.h"
-#include "PlatformAndroid.h"
+#include "main.h"
 
 #include <jni.h>
 #include <string>
@@ -14,19 +13,15 @@
 // Mouse (pointer) speed multiplier.
 const float MOUSE_MOTION_FACTOR = 0.01;
 
-// Init OSG plugins.
-USE_OSGPLUGIN(osg2)
-USE_SERIALIZER_WRAPPER_LIBRARY(osg)
-
 // Create application instance.
-App app;
+Application app;
 
 extern "C" {
 
 // Initialization.
 OSG_JNI(init)(OSG_JNI_ARG, jint width, jint height)
 {
-    app.embed(width, height);
+    app.setupWindow(width, height);
 }
 
 // Rendering.

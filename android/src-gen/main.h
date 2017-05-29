@@ -30,9 +30,16 @@ freely, subject to the following restrictions:
 #include <osgDB/ReadFile>
 #include <osgViewer/Viewer>
 
-// FEATURE RENDERING_DEFAULT/INCLUDE
+// BEGIN FEATURE RENDERING_DEFAULT
+#include <osgGA/TrackballManipulator>
+// END   FEATURE RENDERING_DEFAULT
 
-// FEATURE PLUGINS_STATIC/IMPL
+// BEGIN FEATURE PLUGINS_STATIC
+// Initialize OSG plugins when OpenSceneGraph is built
+// as a static library.
+USE_OSGPLUGIN(osg2)
+USE_SERIALIZER_WRAPPER_LIBRARY(osg)
+// END   FEATURE PLUGINS_STATIC
 
 // This class prints OpenSceneGraph notifications to console.
 class Logger : public osg::NotifyHandler
@@ -83,11 +90,31 @@ class Application
             // Set scene.
             mViewer->setSceneData(scene);
         }
-        // FEATURE INPUT_ANDROID/IMPL
-        // FEATURE RENDERING_ANDROID/IMPL
-        // FEATURE RENDERING_DEFAULT/IMPL
-        // FEATURE RENDERING_DESKTOP/IMPL
-        // FEATURE RENDERING_IOS/IMPL
+// BEGIN FEATURE INPUT_ANDROID
+        void moveMouse(float x, float y)
+        {
+            mViewer->getEventQueue()->mouseMotion(x, y);
+        }
+        void pressMouse(bool down, float x, float y)
+        {
+            if (down)
+                mViewer->getEventQueue()->mouseButtonPress(x, y, 2 /* MMB */);
+            else
+                mViewer->getEventQueue()->mouseButtonRelease(x, y, 2 /* MMB */);
+        }
+// END   FEATURE INPUT_ANDROID
+// BEGIN FEATURE RENDERING_ANDROID
+        void setupWindow(int width, int height)
+        {
+            mViewer->setUpViewerAsEmbeddedInWindow(0, 0, width, height);
+        }
+// END   FEATURE RENDERING_ANDROID
+// BEGIN FEATURE RENDERING_DEFAULT
+        void frame()
+        {
+            mViewer->frame();
+        }
+// END   FEATURE RENDERING_DEFAULT
 
     private:
         void setupLogging()
@@ -104,7 +131,12 @@ class Application
         {
             // Create OpenSceneGraph viewer.
             mViewer = new osgViewer::Viewer;
-            // FEATURE RENDERING_DEFAULT/CONSTRUCT
+// BEGIN FEATURE RENDERING_DEFAULT
+            // Use single thread: CRITICAL for mobile and web.
+            mViewer->setThreadingModel(osgViewer::ViewerBase::SingleThreaded);
+            // Create manipulator: CRITICAL for mobile and web.
+            mViewer->setCameraManipulator(new osgGA::TrackballManipulator);
+// END   FEATURE RENDERING_DEFAULT
         }
         void tearDownLogging()
         {
