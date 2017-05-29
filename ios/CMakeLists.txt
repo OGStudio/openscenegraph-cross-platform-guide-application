@@ -68,3 +68,5 @@ ADD_CUSTOM_COMMAND(
     DEPENDS alwaysRebuild)
 ADD_CUSTOM_TARGET(singleLib ALL
     DEPENDS generateSingleLib)
+# Only generate single lib after osgNativeLib has been built.
+ADD_DEPENDENCIES(singleLib osgNativeLib)
