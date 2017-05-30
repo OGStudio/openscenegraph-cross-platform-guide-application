@@ -15,9 +15,8 @@
 
 #pragma mark - PUBLIC
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
     [self setupWindow];
     [self loadResources];
 }
