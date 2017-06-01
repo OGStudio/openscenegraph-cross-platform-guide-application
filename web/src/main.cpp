@@ -64,7 +64,7 @@ void loop()
     if (app) {
         app->frame();
 #ifdef OSGSDL_PLATFORM_WEB
-        //app->loadScene("box.osgt");
+        app->loadScene("box.osgt");
 #endif
     }
 }

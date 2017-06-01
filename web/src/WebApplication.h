@@ -10,11 +10,9 @@
 #include <SDL2/SDL.h>
 #include <iostream>
 
-/*
 // osgt loader plugin.
 USE_OSGPLUGIN(osg2)
 USE_SERIALIZER_WRAPPER_LIBRARY(osg)
-*/
 
 class WebApplication
 {
