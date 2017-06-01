@@ -8,10 +8,8 @@
     Application *app = 0;
     bool done = false;
 #else // OSGSDL_PLATFORM_WEB
-    /*
     #include "WebApplication.h"
     WebApplication *app = 0;
-    */
     #include <emscripten.h>
 #endif // OSGSDL_PLATFORM_WEB
 
@@ -31,10 +29,8 @@ void loop()
             default:
                 break;
         }
-        /*
         if (app)
             app->handleEvent(e);
-            */
 #ifndef OSGSDL_PLATFORM_WEB
         switch (e.type)
         {
@@ -65,14 +61,12 @@ void loop()
         }
 #endif // OSGSDL_PLATFORM_WEB
     }
-    /*
     if (app) {
         app->frame();
-        */
 #ifdef OSGSDL_PLATFORM_WEB
         //app->loadScene("box.osgt");
 #endif
-    //}
+    }
 }
 
 int main(int argc, char *argv[])
@@ -126,11 +120,9 @@ int main(int argc, char *argv[])
     }
     delete app;
 #else // OSGSDL_PLATFORM_WEB
-    /*
     app = new WebApplication;
     app->setEmbeddedWindowSize(width, height);
     //app->loadScene("box.osgt");
-    */
     emscripten_set_main_loop(loop, -1, 0);
 #endif // OSGSDL_PLATFORM_WEB
     return 0;
