@@ -3,6 +3,7 @@
 #define OSGSDL_WEB_APPLICATION_H
 
 #include "OSGLogger.h"
+#include "VBOSetupVisitor.h"
 
 #include <osgDB/ReadFile>
 #include <osgGA/TrackballManipulator>
@@ -28,12 +29,9 @@ class WebApplication
 
         void frame()
         {
-            static int i = 0;
-            if (++i > 10)
-                return;
-            printf("WebApplication.01.frame\n");
+            //printf("WebApplication.01.frame\n");
             viewer->frame();
-            printf("WebApplication.02.frame\n");
+            //printf("WebApplication.02.frame\n");
         }
         bool handleEvent(SDL_Event &e)
         {
@@ -93,6 +91,10 @@ class WebApplication
             printf("WebApplication.03.loadScene\n");
             // Load node.
             osg::Node *node = osgDB::readNodeFile(fileName);
+            // Use VBO and EBO instead of display lists. CRITICAL for Web (Emscripten).
+            // to skip FULL_ES2 emulation flag.
+            VBOSetupVisitor vbo;
+            node->accept(vbo);
             printf("WebApplication.04.loadScene\n");
             // Assign shaders to the node.
             node->getOrCreateStateSet()->setAttribute(prog);
