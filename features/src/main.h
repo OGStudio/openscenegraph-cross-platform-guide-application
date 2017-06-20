@@ -30,6 +30,8 @@ freely, subject to the following restrictions:
 #include <osgDB/ReadFile>
 #include <osgViewer/Viewer>
 
+// FEATURE VBO/INCLUDE
+
 // FEATURE RENDERING_DEFAULT/INCLUDE
 
 // FEATURE PLUGINS_STATIC/IMPL
@@ -52,6 +54,8 @@ class Logger : public osg::NotifyHandler
             platformLog(finalMessage.c_str());
         }
 };
+
+// FEATURE VBO/DECL
 
 class Application
 {
@@ -76,6 +80,7 @@ class Application
                 osg::notify(osg::FATAL) << "Could not load scene";
                 return;
             }
+            // FEATURE VBO/IMPL
             // Load shaders.
             osg::Program *prog = createShaderProgram(shaderVertex, shaderFragment);
             // Apply shaders.
@@ -84,6 +89,7 @@ class Application
             mViewer->setSceneData(scene);
         }
         // FEATURE INPUT_ANDROID/IMPL
+        // FEATURE INPUT_EMSCRIPTEN/IMPL
         // FEATURE RENDERING_EMBEDDED/IMPL
         // FEATURE RENDERING_DEFAULT/IMPL
         // FEATURE RENDERING_DESKTOP/IMPL

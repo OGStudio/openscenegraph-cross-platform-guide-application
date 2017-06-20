@@ -13,24 +13,10 @@ void loop()
     SDL_Event e;
     while (SDL_PollEvent(&e))
     {
-        // TODO: Remove keyup/down.
-        switch (e.key.keysym.sym)
-        {
-            case SDLK_UP:
-                printf("OSGWeb. Keyup\n");
-                break;
-            case SDLK_DOWN:
-                printf("OSGWeb. Keydown\n");
-                break;
-            default:
-                break;
-        }
-        /*
         if (app)
         {
             app->handleEvent(e);
         }
-        */
     }
     if (app)
     {
@@ -74,10 +60,7 @@ int main(int argc, char *argv[])
     // Create application.
     app = new Application;
     app->setupWindow(width, height);
-    /*
-    app->setEmbeddedWindowSize(width, height);
-    app->loadScene("box.osgt");
-    */
+    app->loadScene("res/box.osgt");
     // Render asynchronously.
     emscripten_set_main_loop(loop, -1, 0);
     return 0;

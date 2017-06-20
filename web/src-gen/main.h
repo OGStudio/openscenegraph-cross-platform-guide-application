@@ -30,6 +30,12 @@ freely, subject to the following restrictions:
 #include <osgDB/ReadFile>
 #include <osgViewer/Viewer>
 
+// BEGIN FEATURE VBO
+#include <osg/Geode>
+#include <osg/Geometry>
+#include <osg/NodeVisitor>
+// END   FEATURE VBO
+
 // BEGIN FEATURE RENDERING_DEFAULT
 #include <osgGA/TrackballManipulator>
 // END   FEATURE RENDERING_DEFAULT
@@ -60,6 +66,29 @@ class Logger : public osg::NotifyHandler
         }
 };
 
+// BEGIN FEATURE VBO
+// This class forces the use of VBO.
+class VBOSetupVisitor : public osg::NodeVisitor
+{
+    public:
+        VBOSetupVisitor() :
+            osg::NodeVisitor(osg::NodeVisitor::TRAVERSE_ALL_CHILDREN) { }
+        virtual void apply(osg::Geode &geode)
+        {
+            for (unsigned int i = 0; i < geode.getNumDrawables(); ++i)
+            {
+                osg::Geometry *geom =
+                    dynamic_cast<osg::Geometry*>(geode.getDrawable(i));
+                if (geom)
+                {
+                    geom->setUseVertexBufferObjects(true);
+                }
+            }
+            NodeVisitor::apply(geode);
+        }
+};
+// END   FEATURE VBO
+
 class Application
 {
     public:
@@ -83,6 +112,12 @@ class Application
                 osg::notify(osg::FATAL) << "Could not load scene";
                 return;
             }
+// BEGIN FEATURE VBO
+            // Use VBO and EBO instead of display lists. CRITICAL for web (Emscripten)
+            // to skip FULL_ES2 emulation flag.
+            VBOSetupVisitor vbo;
+            scene->accept(vbo);
+// END   FEATURE VBO
             // Load shaders.
             osg::Program *prog = createShaderProgram(shaderVertex, shaderFragment);
             // Apply shaders.
@@ -90,6 +125,36 @@ class Application
             // Set scene.
             mViewer->setSceneData(scene);
         }
+// BEGIN FEATURE INPUT_EMSCRIPTEN
+        bool handleEvent(SDL_Event &e)
+        {
+            osgViewer::GraphicsWindow *gw =
+                dynamic_cast<osgViewer::GraphicsWindow *>(
+                    mViewer->getCamera()->getGraphicsContext());
+            if (!gw)
+            {
+                return false;
+            }
+            osgGA::EventQueue &queue = *(gw->getEventQueue());
+            switch (e.type)
+            {
+                case SDL_MOUSEMOTION:
+                    queue.mouseMotion(e.motion.x, e.motion.y);
+                    return true;
+                case SDL_MOUSEBUTTONDOWN:
+                    queue.mouseButtonPress(e.button.x, e.button.y, e.button.button);
+                    printf("OSGWeb. Application. Mouse button down\n");
+                    return true;
+                case SDL_MOUSEBUTTONUP:
+                    queue.mouseButtonRelease(e.button.x, e.button.y, e.button.button);
+                    printf("OSGWeb. Application. Mouse button up\n");
+                    return true;
+                default:
+                    break;
+            }
+            return false;
+        }
+// END   FEATURE INPUT_EMSCRIPTEN
 // BEGIN FEATURE RENDERING_EMBEDDED
         void setupWindow(int width, int height)
         {
