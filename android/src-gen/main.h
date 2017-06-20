@@ -103,12 +103,12 @@ class Application
                 mViewer->getEventQueue()->mouseButtonRelease(x, y, 2 /* MMB */);
         }
 // END   FEATURE INPUT_ANDROID
-// BEGIN FEATURE RENDERING_ANDROID
+// BEGIN FEATURE RENDERING_EMBEDDED
         void setupWindow(int width, int height)
         {
             mViewer->setUpViewerAsEmbeddedInWindow(0, 0, width, height);
         }
-// END   FEATURE RENDERING_ANDROID
+// END   FEATURE RENDERING_EMBEDDED
 // BEGIN FEATURE RENDERING_DEFAULT
         void frame()
         {

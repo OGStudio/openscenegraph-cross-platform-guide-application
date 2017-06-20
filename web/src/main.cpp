@@ -2,8 +2,10 @@
 #include <emscripten.h>
 #include <SDL2/SDL.h>
 
-//#include "Application.h"
-//Application *app = 0;
+#include "main.h"
+
+// We use app global variable in loop() function.
+Application *app = 0;
 
 // Stand alone function that is called by Emscripten to run the app.
 void loop()
@@ -23,9 +25,17 @@ void loop()
             default:
                 break;
         }
-        //app->handleEvent(e);
+        /*
+        if (app)
+        {
+            app->handleEvent(e);
+        }
+        */
     }
-    //app->frame();
+    if (app)
+    {
+        app->frame();
+    }
 }
 
 int main(int argc, char *argv[])
@@ -62,8 +72,9 @@ int main(int argc, char *argv[])
     }
     SDL_GL_CreateContext(window);
     // Create application.
-    /*
     app = new Application;
+    app->setupWindow(width, height);
+    /*
     app->setEmbeddedWindowSize(width, height);
     app->loadScene("box.osgt");
     */
