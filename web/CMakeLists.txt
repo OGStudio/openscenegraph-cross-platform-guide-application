@@ -4,38 +4,47 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 SET(OSG_DIR "${CMAKE_SOURCE_DIR}/../..")
 
 # Specify critical OpenSceneGraph build variables.
-SET(OPENGL_PROFILE "GLES2" CACHE STRING "OpenGL variant to use")
+SET(BUILD_OSG_APPLICATIONS NO CACHE BOOL "Do not build applications")
+SET(EGL_LIBRARY "GL" CACHE STRING "Suppress linkage error")
+SET(OSG_GL1_AVAILABLE OFF CACHE BOOL "Unavailable under Emscripten")
+SET(OSG_GL2_AVAILABLE OFF CACHE BOOL "Unavailable under Emscripten")
+SET(OSG_GLES2_AVAILABLE ON CACHE BOOL "GLES2 is what Emscripten uses")
 SET(DYNAMIC_OPENTHREADS OFF CACHE BOOL "Link OpenThreads statically")
 SET(DYNAMIC_OPENSCENEGRAPH OFF CACHE BOOL "Link OpenSceneGraph statically")
+# Reference SDL2 during build process.
+# We use SDL2 to do the following:
+# * OpenGL functions' address retrieval
+# * OpenGL graphics context creation
+SET(USE_SDL2 "-s USE_SDL=2")
+SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} ${USE_SDL2}" CACHE STRING "Use SDL2" FORCE)
 # Build and reference OpenSceneGraph.
 SET(OSG_SOURCE_DIR "${EXT_PROJ_DIR}/OpenSceneGraph")
-SET(OSG_BUILD_DIR "${EXT_PROJ_DIR}/OpenSceneGraph/build/${ANDROID_ABI}")
+SET(OSG_BUILD_DIR "${EXT_PROJ_DIR}/OpenSceneGraph/build/Emscripten")
 FILE(MAKE_DIRECTORY ${OSG_BUILD_DIR})
 ADD_SUBDIRECTORY(${OSG_SOURCE_DIR} ${OSG_BUILD_DIR})
 INCLUDE_DIRECTORIES(${OSG_SOURCE_DIR}/include)
 INCLUDE_DIRECTORIES(${OSG_BUILD_DIR}/include)
+LINK_DIRECTORIES(${OSG_BUILD_DIR}/lib)
 
-# Reference OpenSceneGraph cross-platform guide application.
-INCLUDE_DIRECTORIES("${EXT_PROJ_DIR}/openscenegraph-cross-platform-guide-application/android/src-gen")
-
-# Build osgNativeLib.
-ADD_LIBRARY(osgNativeLib SHARED src/main/cpp/osgNativeLib.cpp)
-FIND_LIBRARY(log-lib log)
+# Build sample.
+ADD_EXECUTABLE(sample-ems src/main.cpp)
+# Make Emscripten generate ready-to-open HTML page.
+SET(CMAKE_EXECUTABLE_SUFFIX ".html")
+# Make Emscripten preload the resource.
+SET_TARGET_PROPERTIES(sample-ems PROPERTIES LINK_FLAGS "--preload-file box.osgt")
+# Copy the resource to the build directory.
+CONFIGURE_FILE(box.osgt box.osgt COPYONLY)
 # Libraries must be linked in the specified order.
 # Otherwise you may get unsatisified linker errors.
 TARGET_LINK_LIBRARIES(
-    osgNativeLib
-    ${log-lib}
-    GLESv2
+    sample-ems
     osgViewer
     osgDB
-    z
     # osgDB plugins start.
     osgdb_osg
     osgdb_serializers_osg
     # osgDB plugins end.
     osgGA
-    osgShadow
     osgText
     osgUtil
     osg
