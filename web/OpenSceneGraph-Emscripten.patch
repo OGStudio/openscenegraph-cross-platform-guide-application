@@ -1,0 +1,25 @@
+diff --git a/src/osg/GLExtensions.cpp b/src/osg/GLExtensions.cpp
+index a8f4417..bf38624 100644
+--- a/src/osg/GLExtensions.cpp
++++ b/src/osg/GLExtensions.cpp
+@@ -47,6 +47,9 @@
+     #else
+         #include <dlfcn.h>
+     #endif
++#elif defined(__EMSCRIPTEN__)
++    // Emscripten ships SDL, which we use to get OpenGL function addresses.
++    #include <SDL2/SDL.h>
+ #else
+     #include <dlfcn.h>
+ #endif
+@@ -407,6 +410,10 @@ OSG_INIT_SINGLETON_PROXY(GLExtensionDisableStringInitializationProxy, osg::getGL
+ 
+         return dlsym(RTLD_DEFAULT, funcName);
+ 
++    #elif defined(__EMSCRIPTEN__)
++        // Use SDL to get OpenGL function address for Emscripten.
++        return SDL_GL_GetProcAddress(funcName);
++
+     #else // all other unixes
+ 
+         return dlsym(0, funcName);
