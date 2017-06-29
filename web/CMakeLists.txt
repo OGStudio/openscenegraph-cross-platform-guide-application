@@ -30,6 +30,7 @@ INCLUDE_DIRECTORIES(${OSG_BUILD_DIR}/include)
 LINK_DIRECTORIES(${OSG_BUILD_DIR}/lib)
 
 # Build sample.
+INCLUDE_DIRECTORIES(src-gen)
 ADD_EXECUTABLE(sample-ems src/main.cpp)
 # Make Emscripten generate ready-to-open HTML page.
 SET(CMAKE_EXECUTABLE_SUFFIX ".html")
