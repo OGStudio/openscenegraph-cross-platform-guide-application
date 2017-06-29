@@ -11,6 +11,9 @@ SET(OSG_GL2_AVAILABLE OFF CACHE BOOL "Unavailable under Emscripten")
 SET(OSG_GLES2_AVAILABLE ON CACHE BOOL "GLES2 is what Emscripten uses")
 SET(DYNAMIC_OPENTHREADS OFF CACHE BOOL "Link OpenThreads statically")
 SET(DYNAMIC_OPENSCENEGRAPH OFF CACHE BOOL "Link OpenSceneGraph statically")
+# Prevent CMake error during configuration.
+SET(_OPENTHREADS_ATOMIC_USE_GCC_BUILTINS_EXITCODE "0" CACHE STRING "Prevent cfg error")
+
 # Reference SDL2 during build process.
 # We use SDL2 to do the following:
 # * OpenGL functions' address retrieval
