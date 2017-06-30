@@ -21,15 +21,7 @@ List of files
 
 | File name | Description  |
 | ----------------------- | -------------------- |
-| CMakeLists.txt | CMake build system configuration |
-| src/App.h | Central part of the application |
-| src/AppLogging.h | Manages logging |
-| src/AppRendering.h | Manages rendering |
-| src/Logger.h | Logging facility |
-| src/LogLevelConversion.h | Common functions for logging |
-| src/main.cpp | Input validation and application launching |
-| src/Rendering.h | Common functions for rendering |
-| src/Shaders.h | Common stuff for shaders |
+| todo | todo |
 
 <a name="build"/>
 
