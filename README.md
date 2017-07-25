@@ -33,8 +33,8 @@ The structure contains description and implementation notes for each entity.
        * Others use `std::cout << message << std::endl`
    * `void setupCamera(osg::Camera *cam, osg::GraphicsContext *gc, double fovy, int width, int height)`
        * Configure camera with common defaults
-       * Only used under desktop and ios
-       * **TODO** Does it make sence to use it for for others?
+       * Only used under desktop and iOS
+       * **TODO** Does it make sense to use it for for others?
    * Desktop: `osg::GraphicsContext *createGraphicsContext(const std::string &title, int x, int y, int width, int height)` / iOS: `osg::GraphicsContext *createGraphicsContext(int width, int height, float scale, UIView *parentView)`
        * Create graphics context using OpenSceneGraph functionality
        * Only used for desktop and iOS. Android and Web do not use the function, because their graphics contexts are created outside OpenSceneGraph
