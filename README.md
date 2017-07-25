@@ -19,11 +19,16 @@ It displays provided model with simple GLSL shaders.
 Structure
 =========
 
-* `functions.h` file:
+The structure contains description and implementation notes for each entity.
+
+* `functions.h` file
+   * `std::string logLevelToString(osg::NotifySeverity severity)`
+       * Convert OpenSceneGraph logging level to string representation
+
 
 | Signature | Description | Implementation notes |
 | --------- | ----------- | -------------------- |
-| `std::string logLevelToString(osg::NotifySeverity severity)` | Convert OpenSceneGraph logging level to string representation | N/A |
+|  |  |  |
 | `std::string printfString(const char *fmt, ...)` | Construct a string using printf-like syntax | Maximum string length is 1024 bytes long including trailing zero |
 | `void platformLog(const char *message)` | Log message using platform specific tools | <ul><li>Android:</li> Translates to `__android_log_write(ANDROID_LOG_ERROR, "OSG", message)` <li>Others</li> Translates to `std::cout << message << std::endl`</ul> |
 | `void setupCamera(osg::Camera *cam, osg::GraphicsContext *gc, double fovy, int width, int height)` | Configure camera with common defaults | Only used under desktop and ios *TODO* Why not use it everywehre? |
