@@ -95,7 +95,7 @@ void setupCamera(
     // Aspect ratio.
     float aspect = static_cast<float>(width) / static_cast<float>(height);
     // Configure projection.
-    cam->setProjectionMatrixAsPerspective(30, aspect, 1, 1000);
+    cam->setProjectionMatrixAsPerspective(fovy, aspect, 1, 1000);
 }
 
 // FEATURE RENDERING_DESKTOP/IMPL
