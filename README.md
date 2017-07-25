@@ -27,7 +27,7 @@ Structure
 | `std::string printfString(const char *fmt, ...)` | Construct a string using printf-like syntax | Maximum string length is 1024 bytes long including trailing zero |
 | `void platformLog(const char *message)` | Log message using platform specific tools | <ul><li>Android:</li> Translates to `__android_log_write(ANDROID_LOG_ERROR, "OSG", message)` <li>Others</li> Translates to `std::cout << message << std::endl`</ul> |
 | `void setupCamera(osg::Camera *cam, osg::GraphicsContext *gc, double fovy, int width, int height)` | Configure camera with common defaults | Only used under desktop and ios *TODO* Why not use it everywehre? |
-| <ul><li>`osg::GraphicsContext *createGraphicsContext(const std::string &title, int x, int y, int width, int height)`</li> Desktop <li>`osg::GraphicsContext *createGraphicsContext(int width, int height, float scale, UIView *parentView)`</li> iOS</ul> | Create graphics context for desktop and iOS. Not used in Android and Web, because their graphics contexts are created with non-OpenSceneGraph tools |
+| <ul><li>`osg::GraphicsContext *createGraphicsContext(const std::string &title, int x, int y, int width, int height)`</li> Desktop <li>`osg::GraphicsContext *createGraphicsContext(int width, int height, float scale, UIView *parentView)`</li> iOS</ul> | Create graphics context using OpenSceneGraph functionality | Only used for desktop and iOS. Android and Web do not use the function, because their graphics contexts are created outside OpenSceneGraph |
 
 <a name="build"/>
 
