@@ -27,7 +27,7 @@ freely, subject to the following restrictions:
 
 #include <osg/Notify>
 
-// Convert NotifySeverity enum value to string.
+// Convert OpenSceneGraph logging level to string representation.
 std::string logLevelToString(osg::NotifySeverity severity)
 {
     switch (severity)
@@ -69,7 +69,7 @@ std::string printfString(const char *fmt, ...)
 // FEATURE LOGGING_ANDROID/INCLUDE
 // FEATURE LOGGING_DEFAULT/INCLUDE
 
-// Platform specific logging.
+// Log message using platform specific tools.
 void platformLog(const char *message)
 {
     // FEATURE LOGGING_ANDROID/IMPL
