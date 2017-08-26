@@ -9,6 +9,7 @@ SET(EGL_LIBRARY "GL" CACHE STRING "Suppress linkage error")
 SET(OSG_GL1_AVAILABLE OFF CACHE BOOL "Unavailable under Emscripten")
 SET(OSG_GL2_AVAILABLE OFF CACHE BOOL "Unavailable under Emscripten")
 SET(OSG_GLES2_AVAILABLE ON CACHE BOOL "GLES2 is what Emscripten uses")
+SET(OSG_WINDOWING_SYSTEM "None" CACHE STRING "Since we use SDL2 for OpenGL context creation, we don't have a windowing system")
 SET(DYNAMIC_OPENTHREADS OFF CACHE BOOL "Link OpenThreads statically")
 SET(DYNAMIC_OPENSCENEGRAPH OFF CACHE BOOL "Link OpenSceneGraph statically")
 # Prevent CMake error during configuration.
