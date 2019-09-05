@@ -19,7 +19,7 @@ SET(_OPENTHREADS_ATOMIC_USE_GCC_BUILTINS_EXITCODE "0" CACHE STRING "Prevent cfg 
 # We use SDL2 to do the following:
 # * OpenGL functions' address retrieval
 # * OpenGL graphics context creation
-SET(USE_SDL2 "-s USE_SDL=2")
+SET(USE_SDL2 "-s USE_SDL=2 -s ERROR_ON_MISSING_LIBRARIES=0 -s ERROR_ON_UNDEFINED_SYMBOLS=0")
 SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} ${USE_SDL2}" CACHE STRING "Use SDL2" FORCE)
 # Build and reference OpenSceneGraph.
 SET(OSG_SOURCE_DIR "${EXT_PROJ_DIR}/OpenSceneGraph")
